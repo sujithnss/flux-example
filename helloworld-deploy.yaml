@@ -1,25 +1,27 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: helloworld
+  name: hello-deployment
 spec:
-  minReadySeconds: 5
-  replicas: 4
+  replicas: 18
   template:
     metadata:
       labels:
-        name: helloworld
+        app: hello
+        version: v2
     spec:
       containers:
-      - name: helloworld
-        image: quay.io/weaveworks/helloworld:master-a000001
-        args:
-        - -msg=Ahoy
-        ports:
-        - containerPort: 80
-      - name: sidecar
-        image: quay.io/weaveworks/sidecar:master-a000001
-        args:
-        - -addr=:8080
-        ports:
-        - containerPort: 8080
+        -
+          env:
+            -
+              name: NODE_ENV
+              value: prod
+            -
+              name: dc
+              value: sdc
+          image: quay.io/weaveworks/helloworld:master-a000001
+          imagePullPolicy: Always
+          name: hello
+          ports:
+            - name: web
+              containerPort: 9000
