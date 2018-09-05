@@ -18,7 +18,7 @@ spec:
               value: prod
             -
               name: dc
-              value: sujith
+              value: vishal
           image: quay.io/weaveworks/helloworld:master-a000001
           imagePullPolicy: Always
           name: hello
